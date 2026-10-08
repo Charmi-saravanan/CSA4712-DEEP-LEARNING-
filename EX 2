@@ -1,0 +1,141 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# --------------------------------------------------
+# 1. CREATE DATASET USING PANDAS
+# --------------------------------------------------
+
+data = {
+    "Maths": [60, 65, 70, 75, 80, 85, 90, 95],
+    "Physics": [55, 60, 68, 72, 78, 82, 88, 92]
+}
+
+df = pd.DataFrame(data)
+
+print("Dataset:")
+print(df)
+
+
+# --------------------------------------------------
+# 2. CALCULATE MEAN
+# --------------------------------------------------
+
+print("\nMean:")
+print(df.mean())
+
+
+# --------------------------------------------------
+# 3. CALCULATE COVARIANCE MATRIX
+# --------------------------------------------------
+
+covariance_matrix = df.cov()
+
+print("\nCovariance Matrix:")
+print(covariance_matrix)
+
+
+# --------------------------------------------------
+# 4. FIND EIGENVALUES AND EIGENVECTORS
+# --------------------------------------------------
+
+# Convert covariance matrix into NumPy array
+cov_matrix = covariance_matrix.to_numpy()
+
+eigenvalues, eigenvectors = np.linalg.eig(cov_matrix)
+
+print("\nEigenvalues:")
+print(eigenvalues)
+
+print("\nEigenvectors:")
+print(eigenvectors)
+
+
+# --------------------------------------------------
+# 5. SORT EIGENVALUES AND EIGENVECTORS
+# --------------------------------------------------
+
+# Sort eigenvalues in descending order
+index = np.argsort(eigenvalues)[::-1]
+
+eigenvalues = eigenvalues[index]
+eigenvectors = eigenvectors[:, index]
+
+print("\nSorted Eigenvalues:")
+print(eigenvalues)
+
+print("\nSorted Eigenvectors:")
+print(eigenvectors)
+
+
+# --------------------------------------------------
+# 6. EXPLAINED VARIANCE
+# --------------------------------------------------
+
+explained_variance = eigenvalues / np.sum(eigenvalues)
+
+print("\nExplained Variance:")
+print(explained_variance)
+
+print("\nExplained Variance (%):")
+print(explained_variance * 100)
+
+
+# --------------------------------------------------
+# 7. VISUALIZE THE DATA
+# --------------------------------------------------
+
+plt.figure(figsize=(8, 6))
+
+plt.scatter(df["Maths"], df["Physics"], s=80)
+
+plt.xlabel("Maths Marks")
+plt.ylabel("Physics Marks")
+plt.title("Maths vs Physics")
+plt.grid(True)
+
+plt.show()
+
+
+# --------------------------------------------------
+# 8. VISUALIZE EIGENVECTORS
+# --------------------------------------------------
+
+plt.figure(figsize=(8, 6))
+
+# Plot original data centered around mean
+centered_data = df - df.mean()
+
+plt.scatter(
+    centered_data["Maths"],
+    centered_data["Physics"],
+    s=50,
+    label="Data Points"
+)
+
+# Plot eigenvectors
+origin = [0, 0]
+
+for i in range(len(eigenvalues)):
+    vector = eigenvectors[:, i] * np.sqrt(eigenvalues[i])
+
+    plt.quiver(
+        origin[0],
+        origin[1],
+        vector[0],
+        vector[1],
+        angles="xy",
+        scale_units="xy",
+        scale=1,
+        width=0.01,
+        label=f"Eigenvector {i+1}"
+    )
+
+plt.xlabel("Maths (Centered)")
+plt.ylabel("Physics (Centered)")
+plt.title("Eigenvectors of Covariance Matrix")
+plt.grid(True)
+plt.axis("equal")
+plt.legend()
+
+plt.show()
