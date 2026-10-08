@@ -1,0 +1,145 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# --------------------------------------------------
+# 1. VECTOR OPERATIONS
+# --------------------------------------------------
+
+# Define two vectors
+v1 = np.array([1, 2, 3])
+v2 = np.array([4, 5, 6])
+
+print("Vector 1:", v1)
+print("Vector 2:", v2)
+
+# Vector Addition
+addition = v1 + v2
+print("\nVector Addition:", addition)
+
+# Vector Subtraction
+subtraction = v1 - v2
+print("Vector Subtraction:", subtraction)
+
+# Scalar Multiplication
+scalar = 3
+scalar_multiplication = scalar * v1
+print("Scalar Multiplication:", scalar_multiplication)
+
+# Dot Product
+dot_product = np.dot(v1, v2)
+print("Dot Product:", dot_product)
+
+# Magnitude of Vector
+magnitude = np.linalg.norm(v1)
+print("Magnitude of Vector 1:", magnitude)
+
+
+# --------------------------------------------------
+# 2. MATRIX OPERATIONS
+# --------------------------------------------------
+
+# Define two matrices
+A = np.array([
+    [1, 2],
+    [3, 4]
+])
+
+B = np.array([
+    [5, 6],
+    [7, 8]
+])
+
+print("\nMatrix A:")
+print(A)
+
+print("\nMatrix B:")
+print(B)
+
+# Matrix Addition
+matrix_addition = A + B
+print("\nMatrix Addition:")
+print(matrix_addition)
+
+# Matrix Subtraction
+matrix_subtraction = A - B
+print("\nMatrix Subtraction:")
+print(matrix_subtraction)
+
+# Matrix Multiplication
+matrix_multiplication = np.dot(A, B)
+print("\nMatrix Multiplication:")
+print(matrix_multiplication)
+
+# Transpose
+transpose_A = A.T
+print("\nTranspose of A:")
+print(transpose_A)
+
+# Determinant
+determinant = np.linalg.det(A)
+print("\nDeterminant of A:", determinant)
+
+# Inverse
+inverse_A = np.linalg.inv(A)
+print("\nInverse of A:")
+print(inverse_A)
+
+
+# --------------------------------------------------
+# 3. MATRIX-VECTOR MULTIPLICATION
+# --------------------------------------------------
+
+vector = np.array([2, 3])
+
+result = np.dot(A, vector)
+
+print("\nMatrix-Vector Multiplication:")
+print(result)
+
+
+# --------------------------------------------------
+# 4. VISUALIZATION USING MATPLOTLIB
+# --------------------------------------------------
+
+plt.figure(figsize=(8, 5))
+
+# Plot Vector 1
+plt.quiver(
+    0, 0,
+    v1[0], v1[1],
+    angles='xy',
+    scale_units='xy',
+    scale=1,
+    label='Vector 1'
+)
+
+# Plot Vector 2
+plt.quiver(
+    0, 0,
+    v2[0], v2[1],
+    angles='xy',
+    scale_units='xy',
+    scale=1,
+    label='Vector 2'
+)
+
+# Plot Resultant Vector
+plt.quiver(
+    0, 0,
+    addition[0], addition[1],
+    angles='xy',
+    scale_units='xy',
+    scale=1,
+    label='Vector Addition'
+)
+
+plt.xlim(0, 8)
+plt.ylim(0, 8)
+
+plt.xlabel("X-axis")
+plt.ylabel("Y-axis")
+plt.title("Vector Operations")
+plt.grid()
+plt.legend()
+
+plt.show()
