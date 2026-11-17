@@ -1,0 +1,39 @@
+
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import entropy
+
+# Define probability distributions
+P = np.array([0.4, 0.3, 0.2, 0.1])
+Q = np.array([0.1, 0.2, 0.3, 0.4])
+
+# Calculate Entropy
+H_P = entropy(P, base=2)
+
+# Calculate Cross-Entropy
+Cross_Entropy = -np.sum(P * np.log2(Q))
+
+# Calculate KL Divergence
+KL_Divergence = entropy(P, Q, base=2)
+
+# Display results
+print("Entropy:", round(H_P, 4), "bits")
+print("Cross-Entropy:", round(Cross_Entropy, 4), "bits")
+print("KL Divergence:", round(KL_Divergence, 4), "bits")
+
+# Visualize probability distributions
+labels = ['A', 'B', 'C', 'D']
+x = np.arange(len(labels))
+width = 0.35
+
+plt.figure(figsize=(8, 5))
+plt.bar(x - width/2, P, width, label='Distribution P')
+plt.bar(x + width/2, Q, width, label='Distribution Q')
+
+plt.xlabel("Categories")
+plt.ylabel("Probability")
+plt.title("Comparison of Probability Distributions")
+plt.xticks(x, labels)
+plt.legend()
+plt.grid(axis='y')
+plt.show()
