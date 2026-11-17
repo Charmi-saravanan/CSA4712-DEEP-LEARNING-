@@ -1,0 +1,46 @@
+
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import binom, norm
+
+# Binomial Probability Distribution
+n = 10
+p = 0.5
+x = np.arange(0, n + 1)
+
+probabilities = binom.pmf(x, n, p)
+
+plt.figure(figsize=(8, 4))
+plt.bar(x, probabilities)
+plt.title("Binomial Probability Distribution")
+plt.xlabel("Number of Successes")
+plt.ylabel("Probability")
+plt.grid(axis='y')
+plt.show()
+
+# Normal Probability Distribution
+data = np.linspace(-4, 4, 100)
+pdf = norm.pdf(data, 0, 1)
+
+plt.figure(figsize=(8, 4))
+plt.plot(data, pdf)
+plt.title("Normal Probability Distribution")
+plt.xlabel("Values")
+plt.ylabel("Probability Density")
+plt.grid()
+plt.show()
+
+# Bayes' Theorem
+P_A = 0.6
+P_B_given_A = 0.8
+P_B_given_not_A = 0.3
+
+P_not_A = 1 - P_A
+P_B = (P_B_given_A * P_A) + (P_B_given_not_A * P_not_A)
+
+P_A_given_B = (P_B_given_A * P_A) / P_B
+
+print("Probability Distributions Generated")
+print("P(A):", P_A)
+print("P(B):", round(P_B, 4))
+print("P(A|B) using Bayes' Theorem:", round(P_A_given_B, 4))
