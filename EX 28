@@ -1,0 +1,41 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Simulated Deep Boltzmann Machine Layers
+visible_units = 20
+hidden1_units = 10
+hidden2_units = 5
+
+# Random weights
+W1 = np.random.randn(
+    visible_units,
+    hidden1_units
+)
+
+W2 = np.random.randn(
+    hidden1_units,
+    hidden2_units
+)
+
+# Sample input
+X = np.random.rand(100, visible_units)
+
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+# Forward propagation
+H1 = sigmoid(np.dot(X, W1))
+H2 = sigmoid(np.dot(H1, W2))
+
+print("Input Shape:", X.shape)
+print("Hidden Layer 1:", H1.shape)
+print("Hidden Layer 2:", H2.shape)
+
+# Visualization
+plt.imshow(H2[:20],
+           cmap='viridis',
+           aspect='auto')
+
+plt.colorbar()
+plt.title("DBM Hidden Representation")
+plt.show()
