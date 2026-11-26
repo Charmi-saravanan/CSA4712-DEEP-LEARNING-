@@ -1,0 +1,36 @@
+import numpy as np
+from sklearn.datasets import load_digits
+from sklearn.neural_network import BernoulliRBM
+
+# Dataset
+digits = load_digits()
+X = digits.data / 16.0
+
+# First RBM Layer
+rbm1 = BernoulliRBM(
+    n_components=100,
+    learning_rate=0.01,
+    n_iter=10,
+    random_state=0
+)
+
+rbm1.fit(X)
+
+# Hidden Features
+H1 = rbm1.transform(X)
+
+# Second RBM Layer
+rbm2 = BernoulliRBM(
+    n_components=50,
+    learning_rate=0.01,
+    n_iter=10,
+    random_state=0
+)
+
+rbm2.fit(H1)
+
+H2 = rbm2.transform(H1)
+
+print("Input Shape:", X.shape)
+print("Layer 1 Features:", H1.shape)
+print("Layer 2 Features:", H2.shape)
