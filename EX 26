@@ -1,0 +1,39 @@
+import numpy as np
+
+# Binary dataset
+X = np.array([
+    [1, 1, 1, 0, 0, 0],
+    [1, 0, 1, 0, 0, 0],
+    [1, 1, 1, 0, 0, 0]
+])
+
+n_visible = 6
+n_hidden = 2
+
+# Initialize weights
+W = np.random.randn(n_visible, n_hidden) * 0.1
+
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+# Contrastive Divergence (CD-1)
+for epoch in range(100):
+
+    # Positive phase
+    h_prob = sigmoid(np.dot(X, W))
+    h_state = (h_prob > np.random.rand(*h_prob.shape)).astype(int)
+
+    # Gibbs Sampling
+    v_prob = sigmoid(np.dot(h_state, W.T))
+    v_state = (v_prob > np.random.rand(*v_prob.shape)).astype(int)
+
+    h_prob_neg = sigmoid(np.dot(v_state, W))
+
+    # Weight Update
+    W += 0.1 * (
+        np.dot(X.T, h_prob) -
+        np.dot(v_state.T, h_prob_neg)
+    ) / len(X)
+
+print("Updated Weights:")
+print(W)
