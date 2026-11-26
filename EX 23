@@ -1,0 +1,28 @@
+from pgmpy.models import BayesianNetwork
+from pgmpy.base import DAG
+import networkx as nx
+import matplotlib.pyplot as plt
+
+# Create Bayesian Network
+model = BayesianNetwork([
+    ('Rain', 'Traffic'),
+    ('Accident', 'Traffic')
+])
+
+print("Nodes:", model.nodes())
+print("Edges:", model.edges())
+
+# Visualize
+G = nx.DiGraph()
+G.add_edges_from(model.edges())
+
+nx.draw(
+    G,
+    with_labels=True,
+    node_color='lightblue',
+    node_size=3000,
+    font_size=10
+)
+
+plt.title("Bayesian Network")
+plt.show()
