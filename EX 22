@@ -1,0 +1,22 @@
+from sklearn.datasets import load_iris
+from sklearn.decomposition import FastICA
+import matplotlib.pyplot as plt
+
+X = load_iris().data
+
+ica = FastICA(
+    n_components=2,
+    random_state=0
+)
+
+X_ica = ica.fit_transform(X)
+
+plt.scatter(
+    X_ica[:,0],
+    X_ica[:,1]
+)
+
+plt.xlabel("IC1")
+plt.ylabel("IC2")
+plt.title("ICA Components")
+plt.show()
