@@ -1,0 +1,50 @@
+import numpy as np
+import tensorflow as tf
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+
+# Generator
+generator = Sequential([
+    Dense(128, activation='relu', input_dim=100),
+    Dense(256, activation='relu'),
+    Dense(784, activation='sigmoid')
+])
+
+# Generate random noise
+noise = np.random.normal(0, 1, (5, 100))
+
+# Generate samples
+generated_images = generator.predict(noise)
+
+print("Generated Sample Shape:")
+print(generated_images.shape)
+
+
+import numpy as np
+from tensorflow.keras.layers import Input, Dense
+from tensorflow.keras.models import Model
+
+input_dim = 20
+latent_dim = 2
+
+# Encoder
+inputs = Input(shape=(input_dim,))
+encoded = Dense(10, activation='relu')(inputs)
+latent = Dense(latent_dim)(encoded)
+
+encoder = Model(inputs, latent)
+
+# Decoder
+latent_inputs = Input(shape=(latent_dim,))
+decoded = Dense(10, activation='relu')(latent_inputs)
+outputs = Dense(input_dim, activation='sigmoid')(decoded)
+
+decoder = Model(latent_inputs, outputs)
+
+# Generate random latent vectors
+z = np.random.normal(size=(5, latent_dim))
+
+samples = decoder.predict(z)
+
+print("Generated Samples:")
+print(samples.shape)
