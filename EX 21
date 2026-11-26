@@ -1,0 +1,14 @@
+from sklearn.datasets import load_iris
+from sklearn.decomposition import FactorAnalysis
+
+X = load_iris().data
+
+fa = FactorAnalysis(n_components=2)
+
+X_factors = fa.fit_transform(X)
+
+print("Factor Loadings:")
+print(fa.components_)
+
+print("\nLatent Factors:")
+print(X_factors[:5])
