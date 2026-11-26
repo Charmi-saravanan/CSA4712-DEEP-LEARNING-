@@ -1,0 +1,14 @@
+import networkx as nx
+import matplotlib.pyplot as plt
+
+G=nx.DiGraph()
+
+nodes=['h0','h1','h2','h3']
+for i in range(len(nodes)-1):
+    G.add_edge(nodes[i],nodes[i+1])
+
+nx.draw(G,with_labels=True,node_color='lightblue',
+        node_size=2000)
+
+plt.title("Unfolded RNN")
+plt.show()
