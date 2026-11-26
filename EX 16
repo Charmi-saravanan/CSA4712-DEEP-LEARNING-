@@ -1,0 +1,27 @@
+import numpy as np
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import SimpleRNN, LSTM, Dense
+
+X = np.random.rand(100,5,1)
+y = np.random.rand(100,1)
+
+# RNN
+rnn = Sequential([
+    SimpleRNN(10,input_shape=(5,1)),
+    Dense(1)
+])
+
+rnn.compile(optimizer='adam',loss='mse')
+rnn.fit(X,y,epochs=5,verbose=0)
+
+# LSTM
+lstm = Sequential([
+    LSTM(10,input_shape=(5,1)),
+    Dense(1)
+])
+
+lstm.compile(optimizer='adam',loss='mse')
+lstm.fit(X,y,epochs=5,verbose=0)
+
+print("RNN Loss:", rnn.evaluate(X,y,verbose=0))
+print("LSTM Loss:", lstm.evaluate(X,y,verbose=0))
