@@ -1,0 +1,13 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+timesteps=np.arange(1,11)
+
+gradients=0.9**timesteps
+
+plt.plot(timesteps,gradients,marker='o')
+plt.xlabel("Time Steps")
+plt.ylabel("Gradient Value")
+plt.title("Gradient Decay in BPTT")
+plt.grid(True)
+plt.show()
