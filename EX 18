@@ -1,0 +1,25 @@
+import numpy as np
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import SimpleRNN,LSTM,GRU,Dense
+
+X=np.random.rand(100,5,1)
+y=np.random.rand(100,1)
+
+models={
+    "RNN":SimpleRNN(16),
+    "LSTM":LSTM(16),
+    "GRU":GRU(16)
+}
+
+for name,layer in models.items():
+
+    model=Sequential([
+        layer,
+        Dense(1)
+    ])
+
+    model.compile(optimizer='adam',loss='mse')
+    model.fit(X,y,epochs=5,verbose=0)
+
+    loss=model.evaluate(X,y,verbose=0)
+    print(name,"Loss:",loss)
