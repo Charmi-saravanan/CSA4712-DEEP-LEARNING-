@@ -1,0 +1,40 @@
+import numpy as np
+from sklearn.metrics import mean_squared_error
+import matplotlib.pyplot as plt
+
+# Original data
+real_data = np.random.rand(100)
+
+# Simulated GAN output
+gan_output = real_data + np.random.normal(0, 0.05, 100)
+
+# Simulated VAE output
+vae_output = real_data + np.random.normal(0, 0.08, 100)
+
+# Evaluation
+gan_mse = mean_squared_error(
+    real_data,
+    gan_output
+)
+
+vae_mse = mean_squared_error(
+    real_data,
+    vae_output
+)
+
+print("GAN MSE :", gan_mse)
+print("VAE MSE :", vae_mse)
+
+# Visualization
+plt.plot(real_data,
+         label="Original")
+
+plt.plot(gan_output,
+         label="GAN Output")
+
+plt.plot(vae_output,
+         label="VAE Output")
+
+plt.legend()
+plt.title("Generative Model Comparison")
+plt.show()
